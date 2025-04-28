@@ -1,26 +1,35 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 interface ProductCardProps {
-    name: string
-    price: string
-    image: string
-    size: string
-  }
-  
-  const ProductCard = ({ name, price, image, size }: ProductCardProps) => {
-    return (
-      <div className="flex flex-col items-center">
-        <div className="relative mb-2 bg-gray-100 rounded-md p-4 w-full h-40 flex items-center justify-center">
-          <div className="absolute top-0 right-0 bg-yellow-400 px-2 py-1 text-xs font-bold">
-            {size}
-          </div>
-          <div className="relative h-32 w-32">
-            <Image src={image} alt={name} fill style={{ objectFit: 'contain' }} />
-          </div>
-        </div>
-        <h3 className="text-xs font-medium text-center">{name}</h3>
-        <p className="text-xs font-bold">${price}</p>
+  name: string;
+  price: string;
+  image: string;
+  size: string;
+}
+
+const ProductCard = ({ name, price, image, size }: ProductCardProps) => {
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      <Image
+        src={image}
+        alt={name}
+        width={200}
+        height={200}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-indigo-900 truncate">
+          {name}
+        </h3>
+        <p className="text-sm text-gray-600">{size}</p>
+        <p className="text-xl font-bold text-amber-600 mt-2">
+          ${Number(price).toFixed(2)}
+        </p>
+        <button className="mt-4 w-full bg-indigo-800 hover:bg-indigo-900 text-white py-2 rounded-md transition-colors">
+          Add to Cart
+        </button>
       </div>
-    )
-  }
-  export default ProductCard
+    </div>
+  );
+};
+export default ProductCard;
