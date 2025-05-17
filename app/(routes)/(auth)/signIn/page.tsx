@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -49,8 +51,28 @@ export default function SignIn() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
+                      {/* <div>Hello</div> */}
                       <Input
-                        placeholder="Email or mobile phone number"
+                        placeholder="jaingsung@gmail.com"
+                        {...field}
+                        className="rounded-md h-12"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-indigo-900">
+                      Email or Phone Number
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Phone number"
                         {...field}
                         className="rounded-md h-12"
                       />
@@ -73,6 +95,7 @@ export default function SignIn() {
                       />
                     </FormControl>
                     <FormMessage />
+                    <FormDescription>Forget password?</FormDescription>
                   </FormItem>
                 )}
               />
