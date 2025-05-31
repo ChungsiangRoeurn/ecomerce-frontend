@@ -1,4 +1,3 @@
-// app/signup/page.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signupUser } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,10 @@ const formSchema = z
     name: z.string().min(1, { message: "Full name is required" }),
     email: z
       .string()
-      .email({ message: "Please enter a valid email or phone number" }),
+      .email({ message: "Please enter a valid email" }),
+    phone: z
+      .string()
+      .min(8, { message: "Please enter a valid phone number" }),
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters" }),
@@ -36,20 +39,28 @@ const formSchema = z
   });
 
 export default function SignUp() {
+
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { confirmPassword, ...data } = values;
+    try {
+      const response = await signupUser(data);
+      console.log("Signup Success", response);
+    } catch (error) {
+      console.error("Signup Error:", error);
+    }
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
   });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Handle form submission
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white p-4">
@@ -68,7 +79,7 @@ export default function SignUp() {
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="First and last name"
+                        placeholder="First and Last name"
                         {...field}
                         className="rounded-md h-12"
                       />
@@ -85,7 +96,24 @@ export default function SignUp() {
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Email or mobile phone number"
+                        placeholder="Email"
+                        {...field}
+                        className="rounded-md h-12"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Phone number"
                         {...field}
                         className="rounded-md h-12"
                       />
