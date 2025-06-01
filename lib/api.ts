@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-export const fetcher = async <T>(url: string): Promise<T> => {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('An error occurred while fetching data.');
-    return res.json();
-  };
-  
-=======
 import api from "./axios";
 
 export async function signupUser(data: {
@@ -24,4 +16,3 @@ export async function signupUser(data: {
     throw new Error(message);
   }
 }
->>>>>>> Stashed changes
