@@ -9,7 +9,8 @@ export default async function GetUserInfo(token: string){
                 headers: { Authorization: `Bearer ${token}` }
             }
         );
-        const responseUserInfo = response.data.data;
+        const responseUserInfo = response.data.user;
+        console.log("responseUserInfo:", responseUserInfo);
         return responseUserInfo; // return the user data, including image
     } catch (error) {
         console.log("Error fetching user info:", error);

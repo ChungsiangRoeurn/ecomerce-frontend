@@ -67,6 +67,7 @@ const Model = () => {
         <div className="min-h-screen w-[400px] flex justify-center items-center  p-4 max-sm:flex-col max-sm:justify-start max-sm:w-full">
             <div className="w-full max-w-xl bg-white border border-gray-200 shadow-xl p-8 rounded-lg">
                 {!registedNOverify ? (
+                    <div>
                     <form 
                         onSubmit={handleSubmit(submitInformation)}
                         className={`space-y-4 text-black transition-all duration-300   ${
@@ -165,6 +166,17 @@ const Model = () => {
                             </button>
                         </div>
                     </form>
+                    <div>
+                        <div className="mt-6 text-center">
+                            <p className="text-sm text-gray-600">
+                                Already have an account?{" "}
+                                <a href="/signIn" className="text-blue-600 hover:underline">
+                                    Sign In
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div> 
                 ) : (
                     <VerifyOTP_register email={email} />
                 )}

@@ -53,9 +53,8 @@ export default function VerifyOTP_register({email}: VerifyOTPProps) {
             setLoadingVerify(true);
             const res = await verifyOTP(input);
             console.log("res", res?.success)
-            if(res?.success && res?.userInfo){
-                localStorage.setItem('userInfo', JSON.stringify(res?.userInfo));
-                localStorage.setItem('message', JSON.stringify(res.message));
+            if(res?.success ){
+                localStorage.setItem('userInfo', JSON.stringify(res.userInfo));
                 setOtpStatus("success");
                 alert("Welcome to Blush Cambodia!");
                 window.location.href = "/"; // Redirect to the next page or perform any other action
