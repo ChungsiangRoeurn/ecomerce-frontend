@@ -65,21 +65,7 @@ export default function Hero() {
           {currentCategory}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {onTrendProducts.map((product) => {
-            const variant = product.variants?.[0];
-            return (
-              <ProductCard
-                key={product.product_id}
-                product={product}
-                isActive={
-                  activeCardId === product.product_id || activeCardId === null
-                }
-                onHover={() => setActiveCardId(product.product_id)}
-                onLeave={() => setActiveCardId(null)}
-                onAddToCart={() => setSelectedProduct(product)}
-              />
-            );
-          })}
+
         </div>
       </section>
 

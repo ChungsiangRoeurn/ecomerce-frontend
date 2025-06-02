@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import axios from "axios";
 
 export default async function GetUserInfo(token: string){
@@ -17,3 +17,4 @@ export default async function GetUserInfo(token: string){
         return null;
     }
 }
+
