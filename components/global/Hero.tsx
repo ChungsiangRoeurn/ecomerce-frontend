@@ -51,7 +51,7 @@ export default function Hero() {
             <ProductCard
               key={index}
               name={product.name}
-              price={product.price}
+              price={product.price.toString()}
               image={product.image}
               size={product.size}
             />
