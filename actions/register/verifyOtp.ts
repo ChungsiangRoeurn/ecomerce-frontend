@@ -1,6 +1,7 @@
 'use server'
 import GetUserInfo from "../getUserInfo";
 import axios from "axios";
+import { User } from "lucide-react";
 import { cookies } from "next/headers";
 
 type verifyOPTprops = {
@@ -17,19 +18,9 @@ export default async function verifyOTP({email, otp}: verifyOPTprops){
             email, otp
         })
         console.log("response:", respones.data);
+        const Usertoken = respones.data.token;
         if(respones.data.status == 200 && respones.data.token){
-            const token = respones.data.token;
-            (await cookies()).set({
-                name: 'auth_token',
-                value: token,
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production',
-                path: '/',
-                maxAge: 60 * 60 * 24 * 7
-            })
-
-            const getUser = GetUserInfo(token)
+            const getUser = await GetUserInfo(Usertoken);
             return {
                 token: true,
                 success: true,
@@ -38,7 +29,7 @@ export default async function verifyOTP({email, otp}: verifyOPTprops){
             };
         }else{
             return {
-                token: false,
+                token: Usertoken,
                 success: false,
                 message: respones.data.message
             };
