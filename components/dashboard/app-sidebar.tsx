@@ -53,7 +53,7 @@ export function AppSidebar({
             ...item,
             subItems: item.subItems?.map((sub) => ({
                 ...sub,
-                icon: sub.icon in iconMap ? sub.icon : "Box", // Fallback icon
+                icon: sub.icon in iconMap ? sub.icon : "Box",
             })),
         }));
     }, [initialMenuItems]);
@@ -109,74 +109,76 @@ export function AppSidebar({
                     <Separator className="my-2 bg-gray-200" />
                     <SidebarGroupContent className="space-y-1">
                         <TooltipProvider>
-                            {menuItems.map((item, index) => (
-                                <div key={item.title} className="w-full">
-                                    {item.subItems ? (
-                                        <Collapsible
-                                            open={openMenus[item.title] || false}
-                                            onOpenChange={() => toggleMenu(item.title)}
-                                        >
-                                            <CollapsibleTrigger asChild>
-                                                <div
-                                                    className={cn(
-                                                        "flex items-center justify-between w-full p-2 rounded-lg cursor-pointer transition-colors",
-                                                        pathname === item.href
-                                                            ? "bg-blue-100 text-blue-600 font-semibold"
-                                                            : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
-                                                    )}
-                                                    role="button"
-                                                    aria-expanded={openMenus[item.title] || false}
-                                                    aria-controls={`submenu-${item.title}`}
-                                                >
-                                                    <div className="flex items-center gap-3">
-                                                        {renderIcon(item.icon)}
-                                                        <span
-                                                            className={cn(
-                                                                "text-base font-medium",
-                                                                state === "collapsed" && "opacity-0 w-0 overflow-hidden"
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </span>
-                                                    </div>
-                                                    {state !== "collapsed" && (
-                                                        openMenus[item.title] ? (
-                                                            <ChevronUp className="w-5 h-5" />
-                                                        ) : (
-                                                            <ChevronDown className="w-5 h-5" />
-                                                        )
-                                                    )}
-                                                </div>
-                                            </CollapsibleTrigger>
-                                            <CollapsibleContent
-                                                id={`submenu-${item.title}`}
-                                                className="pl-4 space-y-1 list-none" // Added list-none to remove bullets
+                            <div className="flex flex-col items-center w-full gap-1">
+                                {menuItems.map((item, index) => (
+                                    <div key={item.title} className="w-full flex justify-center">
+                                        {item.subItems ? (
+                                            <Collapsible
+                                                open={openMenus[item.title] || false}
+                                                onOpenChange={() => toggleMenu(item.title)}
                                             >
-                                                {item.subItems.map((subItem) => (
-                                                    <MenuItem
-                                                        key={subItem.title}
-                                                        title={subItem.title}
-                                                        href={subItem.href}
-                                                        icon={subItem.icon}
-                                                        isSubItem={true}
-                                                        isCollapsed={state === "collapsed"}
-                                                    />
-                                                ))}
-                                            </CollapsibleContent>
-                                        </Collapsible>
-                                    ) : (
-                                        <MenuItem
-                                            title={item.title}
-                                            href={item.href}
-                                            icon={item.icon}
-                                            isCollapsed={state === "collapsed"}
-                                        />
-                                    )}
-                                    {index < menuItems.length - 1 && (
-                                        <Separator className="my-1 bg-gray-200" />
-                                    )}
-                                </div>
-                            ))}
+                                                <CollapsibleTrigger asChild>
+                                                    <div
+                                                        className={cn(
+                                                            "flex items-center justify-between w-full p-2 rounded-lg cursor-pointer transition-colors",
+                                                            pathname === item.href
+                                                                ? "bg-blue-100 text-blue-600 font-semibold"
+                                                                : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                                                        )}
+                                                        role="button"
+                                                        aria-expanded={openMenus[item.title] || false}
+                                                        aria-controls={`submenu-${item.title}`}
+                                                    >
+                                                        <div className="flex items-center gap-3">
+                                                            {renderIcon(item.icon)}
+                                                            <span
+                                                                className={cn(
+                                                                    "text-base font-medium",
+                                                                    state === "collapsed" && "opacity-0 w-0 overflow-hidden"
+                                                                )}
+                                                            >
+                                                                {item.title}
+                                                            </span>
+                                                        </div>
+                                                        {state !== "collapsed" && (
+                                                            openMenus[item.title] ? (
+                                                                <ChevronUp className="w-5 h-5" />
+                                                            ) : (
+                                                                <ChevronDown className="w-5 h-5" />
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </CollapsibleTrigger>
+                                                <CollapsibleContent
+                                                    id={`submenu-${item.title}`}
+                                                    className="pl-4 space-y-1 list-none"
+                                                >
+                                                    {item.subItems.map((subItem) => (
+                                                        <MenuItem
+                                                            key={subItem.title}
+                                                            title={subItem.title}
+                                                            href={subItem.href}
+                                                            icon={subItem.icon}
+                                                            isSubItem={true}
+                                                            isCollapsed={state === "collapsed"}
+                                                        />
+                                                    ))}
+                                                </CollapsibleContent>
+                                            </Collapsible>
+                                        ) : (
+                                            <MenuItem
+                                                title={item.title}
+                                                href={item.href}
+                                                icon={item.icon}
+                                                isCollapsed={state === "collapsed"}
+                                            />
+                                        )}
+                                        {index < menuItems.length - 1 && (
+                                            <Separator className="my-1 bg-gray-200" />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </TooltipProvider>
                     </SidebarGroupContent>
                 </SidebarGroup>
