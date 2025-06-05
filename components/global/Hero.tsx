@@ -36,7 +36,7 @@ export default function Hero() {
       />
 
       {/* BANNER */}
-      <div className="relative w-full h-[15rem] md:h-[20rem]">
+      <div className="relative w-full h-[20rem] md:h-[17rem]">
         <Image
           src="http://178.128.101.64:9000/products-all-images/page-cover.png"
           alt="Holiday promotion"
@@ -44,7 +44,7 @@ export default function Hero() {
           style={{ objectFit: "cover" }}
           className="brightness-75"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/30 px-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/10  px-4">
           <div className="text-white text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight drop-shadow-md">
             FREE DELIVERY
           </div>
@@ -65,7 +65,21 @@ export default function Hero() {
           {currentCategory}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-
+          {onTrendProducts.map((product) => {
+            const variant = product.variants?.[0];
+            return (
+              <ProductCard
+                key={product.product_id}
+                product={product}
+                isActive={
+                  activeCardId === product.product_id || activeCardId === null
+                }
+                onHover={() => setActiveCardId(product.product_id)}
+                onLeave={() => setActiveCardId(null)}
+                onAddToCart={() => setSelectedProduct(product)}
+              />
+            );
+          })}
         </div>
       </section>
 
